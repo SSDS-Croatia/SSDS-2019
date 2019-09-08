@@ -95,14 +95,14 @@ Before continuing, let's learn how to get help with a function we want to use. W
 The following code snippet shows how to use the above methods (due to space savings, we do not show their result).
 
 ```{r, eval = F}
-#program code for `ls` function
-ls
+#program code for `mean` function
+mean
 
-# help for `ls` function
-?ls # or help(ls)
+# help for `mean` function
+?mean # or help(mean)
 
-# examples of using the `ls` function
-example(ls)
+# examples of using the `mean` function
+example(mean)
 ```
 
 
