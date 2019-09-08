@@ -1,0 +1,926 @@
+# SSDS 2019 Hand-on session 
+
+## WORKBOOK - Day 1
+
+
+```{r include=FALSE}
+# setup chunk - including the necessary libraries
+library(tidyverse)
+
+
+
+```
+
+
+
+## Variables and data types
+
+*Variables* are basically named storage containers for the values we are interested in keeping. They are called that way because the vaues in these containers can be later changed if needed. To store a value in a variable, we simply pick a name for our variable and then use the assignment operator `<-` together with the chosen value.
+
+Before we see an example of this, let's also note that we can also check the type of variable using the function `typeof` or (preferably) `class`. We can also use functions such as `is.numeric` or `is.logical` to explicitly check if a variable belongs to a specific type. In a similar fashion, we can explicitly convert from one type to another using functions such as `as.numeric` or `as.character`.
+
+
+*********************************************
+### Assignment 1: Data types
+*********************************************
+
+```{r}
+#let's create some variables
+a <- FALSE    # note the assignment operator 
+b <- 35.4
+c <- "SSDS 2019 summer school"
+
+#check whether `a` is a logical variable
+
+#print the value of `b` converted to a character type
+
+#check the type (or class) of the `c` variable
+
+```
+
+
+
+## Operators
+
+As in other programming languages, R permits the use of operators in terms. Some of the more frequently used operators are:
+
+- *arithmetic* `+`, `-`, `*`, `/`, `**`, `%%` (modulo), `%/%`
+- *comparison* `<`, `<=`, `>`, `> =`, `==`, `!=`
+- *logical*    `!` (negation), `&&` (scalar AND), `||` (scalar OR), `&` (vectorized AND), `|` (vectorized OR)
+- *assignment* `<-` or` = `
+
+
+
+*********************************************
+### Assignment 2: Operators
+*********************************************
+
+```{r}
+# print the result of the `5 / 2` and` 5 %/% 2` expressions
+
+# check how much "square of 17" and "the remainder of 101 divided by 12" are
+
+# check what is the result of the following expressions: `17 > 13`,`!TRUE`, `5 && 0`
+```
+
+
+
+*********************************************
+### Assignment 3: Listing and deleting global environment variables
+*********************************************
+
+```{r}
+# print all of the global environment variables that have been created so far
+
+# delete some of the above-written variables - eg rm(x, y, z)
+# list all remaining variables
+
+# delete ALL variables from the global environment
+# (cautiously with this call in practice!)
+# Make sure the global environment is empty
+
+```
+
+
+
+## Getting help
+
+Before continuing, let's learn how to get help with a function we want to use. We have the following options available:
+
+- writing only `<function_name>` (without parenthesis with parameters) and press *<ENTER>* - if the function is written in *R* (and not just *proxy* to a C implementation) the screen will get a printout of the original code function
+- writing `help (<function_name>)` or `? <name_functions>` to get a help function page with the list of parameters, examples, and so on.
+- writing `example (<function_name>)` which provides a list of examples of using the function and the results obtained
+
+
+The following code snippet shows how to use the above methods (due to space savings, we do not show their result).
+
+```{r, eval = F}
+#program code for `ls` function
+ls
+
+# help for `ls` function
+?ls # or help(ls)
+
+# examples of using the `ls` function
+example(ls)
+```
+
+
+
+
+#  Complex data types
+
+## Vector
+
+The vector is one of the main "complex" types of data in the R language. It allows us to store more values of the same type. In other programming languages we usually call such structures "lists" or "arrays", but R uses the term "vectors" which is more in common with a mathematical interpretation of the term. There is one important difference between these structures when comparing R and other programming - in R we commonly do not create a distinction between a single variable (scalar) and a vector. Even the variables and constants we used in the previous lesson were actually single-element vectors. This has far-reaching consequences to be discussed in detail below, but to understand them we first need to get acquainted with the syntax of creating and managing vectors.
+
+
+
+---------------------------------------------
+### Example 1: Creating vectors
+---------------------------------------------
+
+A new vector (which has more then one element) is created using the `c` function (which stands for *combine* or *concatenate*).
+
+
+```{r}
+# numeric vector
+m <- c(1, 2, 3, 4, 5)
+
+# logic vector
+v <- c(T, F, T)
+
+# character vector
+names <- c("Ivo", "Pero", "Ana")
+```
+
+
+
+
+## Automatic conversion of types
+
+Simply stated, a vector is an arranged collection of elements with the **same type**. If we create a new vector with elements of different types, R will automatically convert all elements into the "strongest" type, which will eventually become the type of vector itself (the term "stronger" in this context denotes a type which doesn't cause information loss after conversion; a typical conversion chain goes like this: *logic -> numeric -> character*).
+
+
+---------------------------------------------
+### Example 2: Vector concatenation
+---------------------------------------------
+
+The above `c` function can also be used to concatenate multiple vectors into one:
+
+```{r}
+a <- c(1, 2, 3)
+b <- c(4, 5)
+c <- c(6, 7, 8) # variable can be called "c" in spite of the function c()
+
+d <- c(a, b, c) # d is now c(1, 2, 3, 4, 5, 6, 7, 8)
+```
+
+
+## Vector creation helper functions
+
+In addition to the `c` function, R also offers these convenient ways of creating new vectors:
+
+- `:` -  "range" operator, resulting in a range of integers from upper to lower bound, both included
+- `seq` - sequence function, similar to the range operator but with additional options
+- `rep` - replicate function, repeats the provided elements provided number of times
+   
+ 
+
+*********************************************
+### Assignment 4: Vector creation helper functions
+*********************************************
+
+```{r}
+# print the results of the following commands
+
+# 1:5
+# rep(c(1, 2, 3), times = 3)
+# rep(c(1, 2, 3), each = 3)
+# seq(1, 5, by = 0.5)
+```
+  
+
+---------------------------------------------
+### Example 3: Using type names for vector creation
+---------------------------------------------
+
+
+```{r}
+x <- numeric(2) # vector is filled with "null" elements, in this case (0, 0)
+y <- character(5)
+z <- integer(0) # "empty" vector!
+z <- c(z, 1) # add to the vector the element 1 (actually "merge empty vector and element 1")
+```
+
+
+---------------------------------------------
+### Example 4: %in% operator
+---------------------------------------------
+
+```{r, eval = F}
+4 %in% seq(1, 10, 2) # returns FALSE
+"d" %in% c("a", "b", "c", "d") # returns TRUE
+```
+
+
+***
+
+## Factors
+
+**Factors** in R are a special data type we use to represent what is referred to in statistics as a **nominal** or **categorical** variable. Categories are often identified by a unique set of characters, and in the process of data analysis we often use them for various groupings and aggregations (for example, in a sports race we can calculate the average or best times based on a gender or age category).
+
+
+## Factorization example
+
+The easiest way to learn how to deal with factors is to see them in action. Let's imagine that the next character vector provides a broad description of a blood pressure level for ten patients:
+
+
+```{r}
+bloodPressure <- c ("low", "high", "high", "normal", "normal",
+          "low", "high", "low", "normal", "normal")
+
+```
+
+
+This is obviously a "categorical" variable since it can take one of the three discrete values - `low`, `normal` and `high`. Thus, this vector is a typical candidate for "factorizing", i.e. for converting into a `factor` object. To do this, we can simply use the `factor` function to which we forward the above character vector as a parameter.
+
+
+*********************************************
+### Assignment 5: Factorizing a character vector
+*********************************************
+
+```{r}
+bloodPressure <- c ("low", "high", "high", "normal", "normal",
+          "low", "high", "low", "normal", "normal")
+
+# create a variable `bloodPressure.f` by factorizing
+# the variable `bloodPressure`
+
+# print the variable `bloodPressure.f`
+
+# print its class
+
+# print the value of `bloodPressure.f` converted to a character vector
+
+# print the value of `bloodPressure.f` converted to a numeric vector
+```
+
+
+
+---------------------------------------------
+### Example 5: Additional parameters of the factor function
+---------------------------------------------
+
+```{r}
+bloodPressure.f2 <- factor(bloodPressure,
+        levels = c("very low", "low", "normal", "high", "very high"),
+        ordered = T)
+
+bloodPressure.f2
+
+```
+
+
+
+
+*********************************************
+### Assignment 6: The table function
+*********************************************
+
+One of the frequently asked questions about the category variables is - how are individual categories represented? The answer to this question is provided by the `table` function to which we pass the selected factor.
+
+
+```{r}
+# print the frequency of each category in `bloodPressure.f2`
+```
+
+
+
+
+The `table` function does not necessarily require a factor and will work even with the character vector. But in that case, we would not get information about categories that were not represented at all.
+
+
+
+## Operator `[`
+
+By using the index operator `[` we can retrieve and modify the vector elements.
+
+
+---------------------------------------------
+### Example 6: The [ operator
+---------------------------------------------
+
+```{r}
+a <- c(2, 4, 6)
+a[1] # prints a value of 2
+a[2] <- 5 # element on the 2nd place becomes 5
+a[5] <- 7 # at the 5th place is added 7, and the "hole" is filled with NA
+a
+```
+
+---------------------------------------------
+### Example 7: Retrieving and modifying multiple elements at once
+---------------------------------------------
+
+```{r}
+#first let's create a vector of numbers from 100 to 200
+x <- 100:200    
+
+# printing out first five numbers
+x[1:5]
+
+# setting the 10th and 20th element to 0
+x[c(10,20)] <- 0
+
+# setting all elements larger than 195 to 1
+x[x > 195] <- 1
+```
+
+*********
+
+
+## Vectorization (and recycling)
+
+The notion of *vectorization* or more precisely *vectorized operations and functions* simply means that the operations work on multiple elements at once. If we ask R to make an operation or function over a vector of values, R will perform the function or operation over each element separately and return the vector as a result. Likewise, if we carry out the binary operation between two vectors, it will be performed over the "paired" or "aligned" elements of both vectors (suppose for now that the vectors are of the same length).
+
+   
+*********************************************
+### Assignment 7: Vectorization principle
+*********************************************
+
+```{r}
+x <- seq(-5, 5, 1)
+a <- 1:3
+b <- 4:6
+
+
+# call the abs function to calculate the absolute value
+# over the vector `x` and print the result
+
+
+# add vectors `a` and` b` with operator `+`
+# and print the result
+
+
+# multiply vectors `a` and` b` with operator `*`
+# and print the result
+
+```
+
+
+
+*********************************************
+### Assignment 8: Recycling principle
+*********************************************
+
+```{r}
+a <- 1:4
+b <- c(1, 2)
+c <- rep(5, 3)
+
+# multiply elements of vector `a` by 2 and print the result
+
+# divide vector `a` with vector` b` and print the result
+
+# multiply vectors `a` and` c` and print the result
+
+```
+
+
+
+
+
+The vectorization and recycling principle are very powerful in practice, allowing us to write concise, readable code which doesn't rely on programming loops. Most operators and functions in R are vectorized, which means that even though R supports loops, we commonly want to avoid them and simply declaratively explain to R what we mean to do.
+
+Let's consider a few more examples of vectorized operators.
+
+
+---------------------------------------------
+### Example 8: Vectorized logical operators
+---------------------------------------------
+
+```{r}
+# logical operators | (or), & (and) and ! (not)
+
+a <- c(T, T, F, F, T)
+b <- c(T, T, T, F, F)
+
+cat("a 'or' b\n")
+a|b
+
+cat("a 'and' b\n")
+a&b
+
+cat("'not' a\n")
+!a
+
+
+```
+
+
+
+Be careful not to confuse "vectorized" logical operators `|` and `&` with their non-vectorized counterparts `||` and `&&`. The latter are used in `if` statements (and in loops) where we only need a single `TRUE` or `FALSE` value.
+
+
+---------------------------------------------
+### Example 9: Vectorized relational operators
+---------------------------------------------
+
+```{r}
+x <- 0:10
+y <- seq(-10, 10, 2)
+
+x
+y
+x > y
+x < 5
+
+```
+
+
+
+
+## Index vectors
+
+
+
+The basic principle of choosing multiple elements at once is simple -  we only need to specify the indexes of the elements we want. R offers three basic ways of using index vectors:
+
+- integer- or location-based referencing
+- conditional or boolean-based referencing
+- label-based referencing
+
+## Location-based referencing
+
+*Location-based referencing* is the generalization of an already familiar indexing principle where we state the ordered numbers (indices) of elements we are interested in. If we want more elements, we simply put their indices "packed" into a numeric vector.
+
+Try solving the next task by using the appropriate numeric vectors as indexing parameters.
+
+
+
+*********************************************
+### Assignment 9: Location-based referencing
+*********************************************
+
+```{r}
+x <- 1:10
+
+# print the first element of x
+
+# print the first three vector elements x
+
+# change the first, fifth, and seventh elements to 0
+
+```
+
+
+
+
+
+## Conditional referencing
+
+If we carefully considered the results obtained with examples with vectorized comparison operators then we can very well grasp the way *conditional referencing* works. The principle is simple - for the index vector we set a logical vector of the same length as the vector whose elements we want to retrieve. The logic vector elements determine which elements are retained (the positions where the value is `TRUE`) and which we reject (positions where the value is `FALSE`).
+
+
+
+*********************************************
+### Assignment 10: Conditional referencing
+*********************************************
+
+```{r}
+x <- 1:10
+
+# create a logical vector `y` of length 10 with an arbitrary combination of
+# TRUE and FALSE values
+
+# index the vector `x` with the` y` vector, print and explain the result
+
+
+# print all vector elements `x` which are less or equal to 5
+# use the appropriate expression as a logical index vector
+
+```
+
+
+
+
+### Label-based referencing
+
+*label-based referencing* works on the principle of explicitly naming the elements we want to "keep". In order to be able to use this type of indexing we must meet the necessary prerequisite - vector elements must have predefined "names".
+
+The vectors we used so far did not have named elements. Each element had its predefined *position* within the vector and its value but did not have any special additional identifiers. Programming language R allows you to attach names to vector elements in a very simple way - using a combination of the `names` function, the assignment operator, and the character vector with selected names. We need to make sure that the vector name is of the same length as the original vector!
+
+
+
+*********************************************
+### Assignment 11: Label-based referencing
+*********************************************
+
+```{r}
+height <- c(165, 173, 185, 174, 190)
+names(height) <- c("Marica", "Pero", "Josip", "Ivana", "Stipe")
+
+# print the vector `height`
+
+
+# print the height of Pero and Josip
+
+```
+
+
+
+
+## Matrices and arrays
+
+The matrices and the arrays are simply - multidimensional vectors. *Matrix* is a vector of two dimensions, that is, a vector that organizes elements in "rows" and "columns". *Array* is a vector with three or more dimensions. While matrices are used relatively often in practice, the arrays are somewhat more limited to specific scenarios. Because of this fact in this chapter we will mainly deal with matrices, although the concepts presented are very easily applicable to arrays.
+
+---------------------------------------------
+### Example 10: matrix function
+---------------------------------------------
+
+```{r}
+x <- 1:12
+
+# creating a matrix with 3 lines and 4 columns using the `matrix` function
+m1 <- matrix(x, nrow = 3, ncol = 4)
+m1
+
+# repeating the procedure but using the `byrow` parameter
+m2 <- matrix(x, nrow = 3, ncol = 4, byrow = T)
+m2
+
+```
+
+
+Instead of using the `byrow` parameter we could have used the function `t` (from "transpose") on the result of the second statement.
+
+
+
+
+## Matrix splicing
+
+All the learned principles for "cutting" the vector using index vectors can be applied on matrices. The differences are as follows:
+
+- we index each dimension individually
+- first we index the rows, then the columns, and separate the index vectors by a comma
+- If we want "all rows" or "all columns" we simply omit this index vector( but we still use a comma)
+
+
+---------------------------------------------
+### Example 11: Matrix splicing
+---------------------------------------------
+
+```{r, eval = F}
+# assume that `m 'is a matrix of 3 x 5, with column names from `a` to `e`
+m <- matrix(1:15, 3, 5, T)
+colnames(m) <- c("a", "b", "c", "d", "e")
+
+m[1, 2:5] # first line, all columns from second to fifth
+m[c(F, T, T), c("a", "b")] # second and third rows, columns `a` and` b`
+m[,] # all rows and all columns (same as just `m`)
+
+```
+
+
+
+
+## Lists
+
+The list is an element in R used as a "universal container" of any data. Unlike the vector (ie, the concept of vector as we initially defined it), the list may contain different types of data or, more often, sets of different types of data.
+
+We create the list with the `list` function by which we add a string of names of elements and their content. These elements can be anything, even other lists.
+
+
+---------------------------------------------
+### Example 12: The list function
+---------------------------------------------
+
+```{r, eval = F}
+myList <- list(a = 1, b = 2:100, c = list(x = 1, y = 2))
+```
+
+
+*********************************************
+### Assignment 12: List creation
+*********************************************
+
+```{r}
+# create a new list called `stuff` that will have the following elements
+# element called `numbers' with integers from 1 to 3
+# element called `letters' with letters 'A' and 'B'
+# nameless element with logical vector `c(T, F)`
+
+# print the `stuff` variable
+
+```
+
+
+## The `str` function
+
+The `str` ("structure") function allows us to inspect the properties and list contents without printing the entire list. This function is often used by analysts, both for viewing the list and for a quick insight into the already mentioned data frames that we will work with in the next chapter.
+
+
+*********************************************
+### Assignment 13: List structure
+*********************************************
+
+```{r}
+# print the structure of the `stuff` list
+
+```
+
+
+
+## Operator `[[`
+
+Interestingly, a list is also a vector. Each list is basically a collection of small, single-element lists. If we want to access the individual elements of the list we use the operator `[[`, which works in a similar fashion as the `[` operator, but it also "unpacks" the element.
+
+
+---------------------------------------------
+### Example 13: Operator `[[`
+---------------------------------------------
+
+```{r, eval = F}
+# the first element of the `stuff` list and its class
+stuff[1]
+class(stuff[1])
+
+cat("-----------------\n")
+
+
+# the UNPACKED first element of the `stuff` list and its class
+stuff[[1]]
+class(stuff[[1]])
+
+```
+
+## Operator `$`
+
+The aforementioned operator is most often used to retrieve the selected element of the list defined by the number or (if defined) by the element name. In this approach, we must use the syntax such as `list[[name_element]]` symbol, which is somewhat clumsy for typing. Because of this, R offers an alternative way of accessing the list elements by their name using the `$` operator, ie `list$name_element`.
+
+
+
+*********************************************
+### Assignment 14: Operator `$`
+*********************************************
+
+```{r}
+# print the `letters` element of the `stuff` list
+# using `[[` the operator 
+
+
+# print the `letters` element of the `stuff` list
+# using the `$` operator 
+
+```
+
+
+
+## Adding and removing list element
+
+The lists are an extremely popular type of object in R, as they represent a universal template for more complex data structures, including more complex objects in the narrower sense (as we will see later). The list is also the "foundation" for the most popular and most commonly used element of the R-language: the data frame - which we will learn in the next lesson.
+
+Finally, we learn how to add an element to the list. This is easiest to do using the aforementioned operator `$` - such as `list$newElement <- newElementContents`. The element is deleted by assigning the value `NULL`.
+
+
+*********************************************
+### Assignment 15: Adding and removing list elements
+*********************************************
+
+```{r}
+# in the `stuff` list add the `evenNumbers` element which contains
+# all even numbers from 1 to 100
+
+# delete the third element from the list
+
+
+# print the `stuff` list
+```
+
+
+
+
+
+
+## Data frames
+
+Data frame is by far the most popular element of the programming language R. The language R's primary function is data analysis, and a data frame is actually an object representation of the data set we intend to analyze. In other words, a data frame is an object similar in function to a sheet in *Microsoft Excel* or a table in a relational database. Almost every session in R is oriented around manipulating data frames - but while in  *Excel* we manage the data with the help of a graphical interface, and in relational database via the query language *SQL*, in R we manage data programatically through data frames.
+
+Take for example the following table:
+
+zipCode |	cityName  |	avgSalKn  |	population 	 | cityTax
+----|------------|----------|----------|------
+10000	 |Zagreb |	6359.00	 |790017 |	18
+51000	 |Rijeka |	5418.00	 |128384 |	15
+21000	 |Split	 |5170.00	 |167121 |	10
+31000	 |Osijek |	4892.00	 |84104 |	13
+20000	 |Dubrovnik	 |5348.00	 |28434	 |10
+
+## Creating data frames
+
+
+There are several ways to create data frames, and we'll show two of the most frequently encountered scenarios in practice:
+
+- Programatic creation via the `data.frame` function
+- Load data from an external source using the `read.csv` function
+
+Let's see both of these cases. First, we will create a data frame programatically.
+
+
+---------------------------------------------
+### Example 14: Creating a data frame programatically
+---------------------------------------------
+
+
+```{r}
+# creating a data frame (similar to creating a list)
+cities <- data.frame( zipCode = c(10000, 51000, 21000, 31000, 2000),
+                      cityName = c("Zagreb", "Rijeka", "Split", "Osijek", "Dubrovnik"),
+                      avgSalKn = c(6359, 5418, 5170, 4892, 5348),
+                      population = c(790017, 128384, 167121, 84104, 28434),
+                      cityTax = c(18, 15, 10, 13, 10))
+
+# print the variable `cities`
+cities
+
+
+```
+
+
+## CSV files
+
+Let's try to load the table from an external source now. Although R allows different forms of external data, we will assume that the data is obtained in a standard "CSV form" (CSV - *comma-separated values*). This form is one of the most popular data storage methods in a pure text format that has the advantage of being easy to create manually, and most data management tools implement logic to import/export data as a CSV file.
+
+Below we can see an example of a CSV file that matches the data frame created in the previous example. Suppose the file is named `cities.csv`. The data is separated by a comma (no spaces!), Every observation in your line, and the optional first line represents the column names.
+
+
+```{r, eval = F}
+zipCode,cityName,avgSalKn,population,cityTax
+10000,Zagreb,6359.00,790017,18 
+51000,Rijeka,5418.00,128384,15
+21000,Split,5170.00,167121,10
+31000,Osijek,4892.00,84104,13 
+20000,Dubrovnik,5348.00,28434,10
+```
+
+## Semicolon CSV format
+
+
+One of the potential problems with CSV files is that they use the comma as separator (*delimiter*) of column elements, and in certain languages, as a standard, a "decimal comma" is used instead of a decimal point. Because of this fact, there is an "alternative" CSV standard that uses a semi-colon as a separator so that our CSV file in this case looks like this (let's call it `citiesAlt.csv`):
+
+
+
+```{r, eval = F}
+zipCode;cityName;avgSalKn;population;cityTax
+10000;Zagreb;6359,00;790017;18 
+51000;Rijeka;5418,00;128384;15
+21000;Split;5170,00;167121;10
+31000;Osijek;4892,00;84104;13 
+20000;Dubrovnik;5348,00;28434;10
+```
+
+## The `read_csv` function
+
+We can read this data with the help of function called `read.csv`. However, there is a slightly improved version of this function called `read_csv` (note the underscore instead of the dot) from a package called `readr`. This function will avoid some of the R pitfalls regarding automatic conversion to factors, it will perform faster and will even provide some status messages concering parsed data types. We recommend using `read_csv` over `read.csv` in all the cases of parsing CSV files. In a similar fashion, when later looking at the structure of the data frame, it is somewhat more practical to use the `glimpse` function from the `dplyr` package instead of already shown `str` function - not only is its name a little bit more intuitive, but the printout will be slightly better formated for easier interpretation.
+
+---------------------------------------------
+### Example 15: The read_csv function
+---------------------------------------------
+
+```{r}
+#library(readr) (if it is not loaded already)
+
+citiesAlt <- read_csv("cities.csv")
+citiesAlt
+```
+
+
+(NOTE: If your CSV is using semicolons, use function `read_csv2` instead)
+
+## Common functions for inspecting data frames
+
+Let's look at some useful functions for working with data frames, ie tables. A good part of them is already known from experience in working with lists and matrices:
+
+- `nrow` - number of lines
+- `ncol` or` length` - the number of columns (since the frame behaves both as a matrix and as a list)
+- `dim` - table dimensions
+- `names` - column names
+- `head` - prints several rows from the beginning of the table
+- `tail` - prints several rows from the end of the table
+- `glimpse` - prints table structure ("upgraded" variant of `str`)
+- `summary` - summarizes the statistical information about table columns
+
+
+Let's try some of these functions:
+
+
+
+*********************************************
+### Assignment 16: Working with data frames
+*********************************************
+
+```{r}
+# print the dimensions of the data frame `cities`
+
+
+# "glimpse" the structure of `cities`
+
+
+# print the first few rows of the data frame `cities`
+
+
+# print summarized statistical information about  `cities` 
+
+```
+
+
+
+## Selecting rows and columns
+
+We've already said that data frames behave both as matrices and as lists, which is a feature we often use when selecting rows and columns of data frames. Specifically, we use the following:
+
+- for selecting rows and columns: two-dimensional indexing with the help of index vectors 
+- for select a column: operator `$`
+
+Here we are actually quite flexible - we can, for example, first get certain matrix rows with the help of location indexing and then only single column with the help of `$`. In practice, one of the most common combinations is the conditional selection of rows with the named selection of columns (*SQL* experts will recognize this as a standard combination of *WHERE*  and *SELECT*).
+
+Let's try to apply our knowledge of index vectors, matrices, and lists.
+
+
+*********************************************
+### Assignment 17: Selecting rows and columns
+*********************************************
+
+```{r}
+# print the table `cities` (for reference)
+
+# print the first three rows, the third and fifth column
+
+# print column "cityTax"
+
+# print zipCodes and city names of all cities which 
+# have cityTax greater than 12% and a population of more than 100,000
+
+```
+
+
+
+## Adding and deleting rows and columns
+
+
+As we have said, we add columns to the data frame in the same way as we add list elements - while paying attention that the added column has the same number of elements as the other columns. New columns are often derived from existing columns to create new binary indicators, the results of arithmetic data expressions using other columns, etc.
+
+*********************************************
+### Assignment 18: Adding new columns to a data frame
+*********************************************
+
+```{r}
+# add the logical column` highCityTax` to the  `cities` table
+# which will indicate whether the cityTax is greater than 12%
+
+
+# if we assume that 8% population are children of primary school age
+# and that each primary school has room for 1000 children
+# create a column called `estPrimarySchools` which details 
+# the estimated rounded number of primary schools in each city
+
+
+# print `cities`
+
+```
+
+
+
+
+## Homework exercises
+
+1. Create the following vectors:
+
+- (11, 12, 13,..., 99) 
+- (0, 0, 0, 0, ... , 0)   (100 zeros) 
+- (0, 0.1, 0.2, ...., 1.0)
+
+2. What is the sum of all numbers from 101 to 1001, if we skip all numbers divisible by 10? Use the `sum` function.
+
+3. Create a 3 x 3 matrix by performing the following commands (the sample function will be done in one of the following lessons):
+
+```{r}
+# we create a matrix of 3x3 randomly selected elements from 1 to 100
+set.seed(1234)
+m <- matrix(c(sample(1:100, 9, T)), nrow = 3, ncol = 3, byrow = T)
+```
+
+
+Calculate the inverse matrix with the `solve` function. Make sure the multiplication of the original and inverse matrix result with the unit matrix (use the `% *%` operator to multiply the matrices).
+
+4. Initialize the `stuff` list used in the lesson. Do the following:
+
+- print the class of the second element of the list
+- print the element in the third place of the element of the list named `letters`
+- check the length of the element called `titles` and add the title 'Prof' to the last position
+- check if the number `4` is contained in the first element of the list
+- add a new list of three vectors `a`,` b` and `c` which all contain elements (1,2,3) to the last place of the list
+
+
+5. In the folder along with this notebook, locate the file `citiesNOHEADER.csv` which represents the file that is the same as  `cities.csv` except for the following features:
+
+- column names are missing
+- the gap is used as a separator
+
+Try using the documentation to load the data from this file into the variable 'citiesNH` which will be the same variable as the cities used in the lesson.
+
+6. In the folder along with this notebook, locate the file `receipt.csv` and load it into the `receipt` variable. Make sure that character sequences are not automatically converted into factors. Print to the screen:
+
+- the number of rows in this table
+- the number of columns in the table
+- column names
+
+7. For the `receipt` table, do the following:
+
+- factorize the `itemCategory` column
+- print the code, name and price of all items of the category "sweets and snacks" cheaper than 12 Kn
+- print how many products each category has in the receipt
+- add a `total` column that will contain the total price of eacg bought item set using the price and quantity
+- calculate the total amount of the account
+
