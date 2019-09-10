@@ -254,7 +254,9 @@ h6 {
 </style>
 
 
+</head>
 
+<body>
 
 <style type="text/css">
 .main-container {
@@ -285,6 +287,8 @@ summary {
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -356,15 +360,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-
-
-
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
 
 
 
@@ -1274,16 +1269,16 @@ cities</code></pre>
 citiesAlt &lt;- read_csv(&quot;cities.csv&quot;)</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
-##   zipCode = col_integer(),
+##   zipCode = col_double(),
 ##   cityName = col_character(),
 ##   avgSalKn = col_double(),
-##   population = col_integer(),
-##   cityTax = col_integer()
+##   population = col_double(),
+##   cityTax = col_double()
 ## )</code></pre>
 <pre class="r"><code>citiesAlt</code></pre>
 <pre><code>## # A tibble: 5 x 5
 ##   zipCode cityName  avgSalKn population cityTax
-##     &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt;
+##     &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
 ## 1   10000 Zagreb        6359     790017      18
 ## 2   51000 Rijeka        5418     128384      15
 ## 3   21000 Split         5170     167121      10
@@ -1480,8 +1475,8 @@ cities</code></pre>
 </div>
 <hr />
 </div>
-<div id="assignments" class="section level2 unnumbered">
-<h2>Assignments</h2>
+<div id="homework-exercises" class="section level2">
+<h2>Homework exercises</h2>
 <ol style="list-style-type: decimal">
 <li>Create the following vectors:</li>
 </ol>
@@ -1499,14 +1494,19 @@ set.seed(1234)
 m &lt;- matrix(c(sample(1:100, 9, T)), nrow = 3, ncol = 3, byrow = T)</code></pre>
 <p>Calculate the inverse matrix with the <code>solve</code> function. Make sure the multiplication of the original and inverse matrix result with the unit matrix (use the <code>% *%</code> operator to multiply the matrices).</p>
 <ol start="4" style="list-style-type: decimal">
-<li>Initialize the <code>stuff</code> list used in the lesson. Do the following:</li>
+<li>Initialize the <code>stuff</code> list</li>
 </ol>
+<pre class="r"><code>stuff &lt;- list(numbers = c(1,2,3),
+                 letters = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;),
+                 c(T, F),
+                 titles = c(&quot;Mr&quot;, &quot;Mrs&quot;, &quot;Ms&quot;))</code></pre>
+<p>Do the following:</p>
 <ul>
 <li>print the class of the second element of the list</li>
 <li>print the element in the third place of the element of the list named <code>letters</code></li>
 <li>check the length of the element called <code>titles</code> and add the title ‘Prof’ to the last position</li>
 <li>check if the number <code>4</code> is contained in the first element of the list</li>
-<li>add a new list of three vectors <code>a</code>,<code>b</code> and <code>c</code> which all contain elements (1,2,3) to the last place of the list</li>
+<li>add a new element <code>smallLists</code> to the last place of the list which will contain three vectors <code>a</code>,<code>b</code> and <code>c</code>, all containing elements (1,2,3)</li>
 </ul>
 <ol start="5" style="list-style-type: decimal">
 <li>In the folder along with this notebook, locate the file <code>citiesNOHEADER.csv</code> which represents the file that is the same as <code>cities.csv</code> except for the following features:</li>
@@ -1529,9 +1529,9 @@ m &lt;- matrix(c(sample(1:100, 9, T)), nrow = 3, ncol = 3, byrow = T)</code></pr
 </ol>
 <ul>
 <li>factorize the <code>itemCategory</code> column</li>
-<li>print the code, name and price of all items of the category “sweets and snacks” cheaper than 12 Kn</li>
+<li>print the item ID, name and price of all items of the category “sweets and snacks” cheaper than 12 Kn</li>
 <li>print how many products each category has in the receipt</li>
-<li>add a <code>total</code> column that will contain the total price of eacg bought item set using the price and quantity</li>
+<li>add a <code>total</code> column that will contain the total price of each bought item set using the price and quantity</li>
 <li>calculate the total amount of the account</li>
 </ul>
 </div>

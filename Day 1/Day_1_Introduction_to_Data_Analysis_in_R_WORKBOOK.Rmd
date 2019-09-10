@@ -894,13 +894,23 @@ m <- matrix(c(sample(1:100, 9, T)), nrow = 3, ncol = 3, byrow = T)
 
 Calculate the inverse matrix with the `solve` function. Make sure the multiplication of the original and inverse matrix result with the unit matrix (use the `% *%` operator to multiply the matrices).
 
-4. Initialize the `stuff` list used in the lesson. Do the following:
+4. Initialize the `stuff` list 
+
+```{r}
+stuff <- list(numbers = c(1,2,3),
+                 letters = c("A", "B", "C", "D"),
+                 c(T, F),
+                 titles = c("Mr", "Mrs", "Ms"))
+```
+
+
+Do the following:
 
 - print the class of the second element of the list
 - print the element in the third place of the element of the list named `letters`
 - check the length of the element called `titles` and add the title 'Prof' to the last position
 - check if the number `4` is contained in the first element of the list
-- add a new list of three vectors `a`,` b` and `c` which all contain elements (1,2,3) to the last place of the list
+- add a new element `smallLists` to the last place of the list which will contain three vectors `a`,` b` and `c`,  all containing elements (1,2,3) 
 
 
 5. In the folder along with this notebook, locate the file `citiesNOHEADER.csv` which represents the file that is the same as  `cities.csv` except for the following features:
@@ -919,8 +929,8 @@ Try using the documentation to load the data from this file into the variable 'c
 7. For the `receipt` table, do the following:
 
 - factorize the `itemCategory` column
-- print the code, name and price of all items of the category "sweets and snacks" cheaper than 12 Kn
+- print the item ID, name and price of all items of the category "sweets and snacks" cheaper than 12 Kn
 - print how many products each category has in the receipt
-- add a `total` column that will contain the total price of eacg bought item set using the price and quantity
+- add a `total` column that will contain the total price of each bought item set using the price and quantity
 - calculate the total amount of the account
 
