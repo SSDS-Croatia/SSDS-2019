@@ -1,1 +1,1 @@
-This folder will contain all presentations from morning lectures.
+This folder will contain all presentations and accompanying documents from morning lectures.
