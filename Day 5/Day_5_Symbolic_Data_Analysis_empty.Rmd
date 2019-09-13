@@ -1,0 +1,129 @@
+# SSDS 2019 Hands-on Session
+
+## Workbook - Day 5
+
+## Introduction to symbolic data
+
+```{r}
+library(dplyr)
+library(magrittr)
+```
+
+
+*********************************************
+### Assignment 1
+*********************************************
+Get a glimpse of the Iris dataset and display the first rows.
+```{r}
+
+```
+
+*********************************************
+### Assignment 2
+*********************************************
+Find minimal and maximal values of each feature in the Iris dataset for each species. This will allow us to create interval-valued symbolic variable as $\left[ x_{\min}, x_{\max} \right]$.
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+*********************************************
+### Assignment 3
+*********************************************
+Import RSDA package and create a symbolic dataset from the Iris data. Use classic.to.sym function.
+```{r}
+library(RSDA)
+```
+
+
+
+## Univariate descriptive statistics
+
+*********************************************
+### Assignment 4
+*********************************************
+Calculate the symbolic sample mean for all variables in the Iris dataset. Use sym.mean function.
+```{r}
+
+```
+
+*********************************************
+### Assignment 5
+*********************************************
+Calculate the symbolic sample variance for all variables in the Iris dataset. Use sym.variance function.
+```{r}
+
+```
+
+
+
+## Multivariate descriptive statistics
+
+*********************************************
+### Assignment 6
+*********************************************
+Calculate the empirical covariance between sepal length and sepal width variables of the Iris dataset. Use sym.cov function.
+```{r}
+
+```
+
+*********************************************
+### Assignment 7
+*********************************************
+Calculate the empirical correlation between Sepal length and Sepal width variables of the Iris dataset. Use sym.cor function.
+```{r}
+
+```
+
+
+
+## Principal component analysis for symbolic data
+
+*********************************************
+### Assignment 8
+*********************************************
+Import blood pressure interval-valued data (lynne1) and plot the data using sym.scatterplot.
+
+```{r}
+
+```
+
+*********************************************
+### Assignment 9
+*********************************************
+Plot the blood pressure dataset using sym.scatterplot3d.
+
+```{r}
+
+```
+
+
+*********************************************
+### Assignment 10
+*********************************************
+Apply PCA vertices method to the blood pressure dataset. Use \texttt{sym.interval.pca} function.
+
+```{r}
+
+```
+
+
+
+*********************************************
+### Assignment 11
+*********************************************
+Apply PCA centers method to the blood pressure dataset. Use sym.interval.pca function.
+
+```{r}
+
+```
+
+
+
+
+
+
