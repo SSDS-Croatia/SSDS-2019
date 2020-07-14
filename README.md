@@ -2,7 +2,7 @@
 
 ## Center of Research Excellence for Data Science and Advanced Cooperative Systems, Research Unit for Data Science
 
-Hands-on sessions for [4th International Summer School on Data Science](https://sites.google.com/site/ssdatascience2019/) organized by the Center of Research Excellence for Data Science and Advanced Cooperative Systems, [Research Unit for Data Science](https://across-datascience.zci.hr/en/zci), from September 9-13, 2019 in Split, Croatia.
+Materials for [4th International Summer School on Data Science](https://sites.google.com/site/ssdatascience2019/) organized by the Center of Research Excellence for Data Science and Advanced Cooperative Systems, [Research Unit for Data Science](https://across-datascience.zci.hr/en/zci), from September 9-13, 2019 in Split, Croatia.
 
 ## Materials
 
