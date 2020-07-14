@@ -1,6 +1,10 @@
-# Materials repository for 4th Int'l Summer School on Data Science 2019 (SSDS2019)
+# SSDS 2019  - 4<sup>th</sup> Int'l Summer School on Data Science
 
-This is a repository for all the materials from 4th Int'l Summer School on Data Science (SSDS 2019), held in Split in September 2019, organized by Center of Excellence for Data Science and Cooperative Systems, Zagreb, Croatia.
+## Center of Research Excellence for Data Science and Advanced Cooperative Systems, Research Unit for Data Science
+
+Hands-on sessions for [4th International Summer School on Data Science](https://sites.google.com/site/ssdatascience2019/) organized by the Center of Research Excellence for Data Science and Advanced Cooperative Systems, [Research Unit for Data Science](https://across-datascience.zci.hr/en/zci), from September 9-13, 2019 in Split, Croatia as a **virtual summer school**.
+
+## Materials
 
 The **Lectures** subfolder contains materials from morning presentations.
 
